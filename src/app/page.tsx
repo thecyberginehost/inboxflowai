@@ -1,101 +1,110 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <main className="w-full text-center">
+      {/* Section 1: Hero Section (AI-Themed Background) */}
+      <section className="relative w-full h-screen flex flex-col items-center justify-center text-white">
+        {/* Background Image Only for the Top Section */}
+        <div className="absolute inset-0 -z-10">
+          <img 
+            src="/images/ai-background.jpg" 
+            alt="Futuristic AI Background" 
+            className="w-full h-full object-cover opacity-40"
+          />
+        </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+        <h1 className="text-5xl font-bold text-primary leading-tight">
+          The Future of <span className="text-accent">Cold Email Automation</span>
+        </h1>
+        <p className="mt-4 text-lg text-gray-300 max-w-2xl">
+          AI-powered email outreach that personalizes, automates, and scales your campaigns—without getting flagged as spam.
+        </p>
+
+        <div className="mt-6 flex space-x-4">
+          <a href="/signup" className="px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-secondary transition">
+            Get Started
           </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+          <a href="/about" className="px-6 py-3 border border-gray-500 text-gray-300 rounded-lg font-semibold hover:border-accent hover:text-accent transition">
+            Learn More
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+
+      {/* Section 2: Why Choose InboxFlowAI? */}
+      <section className="py-16 bg-gray-800 text-white motion-safe:animate-fadeInUp">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-4xl font-bold text-primary motion-safe:animate-fadeIn">
+            Why Choose InboxFlowAI?
+          </h2>
+          <p className="text-gray-300 mt-4 max-w-2xl mx-auto motion-safe:animate-fadeIn delay-100">
+            The most powerful AI-driven cold email automation platform designed to maximize response rates and streamline outreach.
+          </p>
+
+          {/* Feature Cards */}
+          <div className="mt-10 grid md:grid-cols-3 gap-8">
+            {[
+              { icon: "🤖", title: "AI-Powered Personalization", text: "Auto-generate highly personalized emails for better engagement." },
+              { icon: "📊", title: "Advanced Analytics", text: "Track email open rates, click-throughs, and conversions with real-time data." },
+              { icon: "🚀", title: "Automated Follow-Ups", text: "Set up intelligent follow-up sequences to nurture leads effortlessly." },
+              { icon: "📬", title: "Smart Inbox Rotation", text: "Rotate between multiple email addresses to improve deliverability." },
+              { icon: "💡", title: "AI-Generated Replies", text: "Get AI-suggested responses to improve engagement and close deals faster." },
+              { icon: "🔥", title: "Email Warm-Up", text: "Gradually increase sending volume to boost sender reputation." },
+            ].map((feature, index) => (
+              <div
+                key={index}
+                className="p-6 bg-gray-700 rounded-lg shadow-lg hover:shadow-xl transition transform hover:scale-105 text-center motion-safe:animate-slideUp"
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
+                <div className="text-accent text-5xl">{feature.icon}</div>
+                <h3 className="text-2xl font-semibold mt-3">{feature.title}</h3>
+                <p className="text-gray-300 mt-2">{feature.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Section 3: How It Works & Testimonials */}
+      <section className="py-16 bg-gray-900 text-white">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-4xl font-bold text-secondary">How It Works</h2>
+          <p className="text-gray-400 mt-4">
+            Get started with InboxFlowAI in just three simple steps.
+          </p>
+
+          <div className="mt-10 grid md:grid-cols-3 gap-8">
+            <div className="p-6 border border-gray-700 rounded-lg">
+              <h3 className="text-xl font-semibold text-accent">1️⃣ Upload Your Leads</h3>
+              <p className="text-gray-400 mt-2">Import your CSV file with prospect details.</p>
+            </div>
+            <div className="p-6 border border-gray-700 rounded-lg">
+              <h3 className="text-xl font-semibold text-accent">2️⃣ AI Personalizes Emails</h3>
+              <p className="text-gray-400 mt-2">Our AI dynamically generates engaging email content.</p>
+            </div>
+            <div className="p-6 border border-gray-700 rounded-lg">
+              <h3 className="text-xl font-semibold text-accent">3️⃣ Automate & Track</h3>
+              <p className="text-gray-400 mt-2">Send, automate follow-ups, and track engagement.</p>
+            </div>
+          </div>
+
+          {/* Testimonials Section */}
+          <h2 className="text-4xl font-bold text-primary mt-16">What Our Users Say</h2>
+
+          <div className="mt-10 grid md:grid-cols-3 gap-8">
+            <div className="p-6 bg-gray-800 rounded-lg shadow-lg">
+              <p className="text-gray-300">"InboxFlowAI tripled my email engagement! The AI personalization is a game-changer."</p>
+              <h4 className="text-accent font-semibold mt-4">- Sarah J, Sales Manager</h4>
+            </div>
+            <div className="p-6 bg-gray-800 rounded-lg shadow-lg">
+              <p className="text-gray-300">"Saved me hours every week! AI-powered automation keeps my outreach seamless."</p>
+              <h4 className="text-accent font-semibold mt-4">- Mike T, Startup Founder</h4>
+            </div>
+            <div className="p-6 bg-gray-800 rounded-lg shadow-lg">
+              <p className="text-gray-300">"Highly recommend for any sales team. InboxFlowAI makes cold emails effortless."</p>
+              <h4 className="text-accent font-semibold mt-4">- Rachel P, Agency Owner</h4>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

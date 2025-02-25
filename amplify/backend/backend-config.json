@@ -1,0 +1,167 @@
+{
+  "auth": {
+    "inboxflowai15a3131f": {
+      "customAuth": false,
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "inboxflowai15a3131fCustomMessage",
+          "triggerProvider": "Cognito"
+        }
+      ],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL",
+          "NAME"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    }
+  },
+  "function": {
+    "inboxflowai15a3131fCustomMessage": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "inboxflowaibb090e2dCreateAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "inboxflowaibb090e2dDefineAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "inboxflowaibb090e2dVerifyAuthChallengeResponse": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "hosting": {
+    "S3AndCloudFront": {
+      "providerPlugin": "awscloudformation",
+      "service": "S3AndCloudFront"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_inboxflowai15a3131fCustomMessage_EMAILMESSAGE": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowai15a3131fCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_inboxflowai15a3131fCustomMessage_EMAILSUBJECT": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowai15a3131fCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_inboxflowai15a3131fCustomMessage_REDIRECTURL": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowai15a3131fCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_inboxflowai15a3131fCustomMessage_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowai15a3131fCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_inboxflowai15a3131fCustomMessage_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowai15a3131fCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_inboxflowaibb090e2dCreateAuthChallenge_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowaibb090e2dCreateAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_inboxflowaibb090e2dCreateAuthChallenge_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowaibb090e2dCreateAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_inboxflowaibb090e2dDefineAuthChallenge_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowaibb090e2dDefineAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_inboxflowaibb090e2dDefineAuthChallenge_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowaibb090e2dDefineAuthChallenge"
+        }
+      ]
+    },
+    "AMPLIFY_function_inboxflowaibb090e2dVerifyAuthChallengeResponse_RECAPTCHASECRET": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowaibb090e2dVerifyAuthChallengeResponse"
+        }
+      ]
+    },
+    "AMPLIFY_function_inboxflowaibb090e2dVerifyAuthChallengeResponse_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowaibb090e2dVerifyAuthChallengeResponse"
+        }
+      ]
+    },
+    "AMPLIFY_function_inboxflowaibb090e2dVerifyAuthChallengeResponse_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowaibb090e2dVerifyAuthChallengeResponse"
+        }
+      ]
+    }
+  }
+}

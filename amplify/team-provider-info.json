@@ -1,0 +1,47 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-inboxflowai-dev-a8e80-authRole",
+      "UnauthRoleArn": "arn:aws:iam::526023820218:role/amplify-inboxflowai-dev-a8e80-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::526023820218:role/amplify-inboxflowai-dev-a8e80-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-inboxflowai-dev-a8e80-deployment",
+      "UnauthRoleName": "amplify-inboxflowai-dev-a8e80-unauthRole",
+      "StackName": "amplify-inboxflowai-dev-a8e80",
+      "StackId": "arn:aws:cloudformation:us-east-1:526023820218:stack/amplify-inboxflowai-dev-a8e80/137b44e0-f2db-11ef-be45-0afff015b437",
+      "AmplifyAppId": "d11ku20qgyymdz",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-inboxflowai-dev-a8e80-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "inboxflowaibb090e2d": {},
+        "inboxflowai15a3131f": {}
+      },
+      "function": {
+        "inboxflowaibb090e2dDefineAuthChallenge": {
+          "deploymentBucketName": "amplify-inboxflowai-dev-a8e80-deployment",
+          "s3Key": "amplify-builds/inboxflowaibb090e2dDefineAuthChallenge-707a72786d7273524d71-build.zip"
+        },
+        "inboxflowaibb090e2dCreateAuthChallenge": {
+          "deploymentBucketName": "amplify-inboxflowai-dev-a8e80-deployment",
+          "s3Key": "amplify-builds/inboxflowaibb090e2dCreateAuthChallenge-6b375630645276575573-build.zip"
+        },
+        "inboxflowaibb090e2dVerifyAuthChallengeResponse": {
+          "RECAPTCHASECRET": "6LewZOEqAAAAAGpvGhGeY2PW6jlTab4vXEltQf",
+          "deploymentBucketName": "amplify-inboxflowai-dev-a8e80-deployment",
+          "s3Key": "amplify-builds/inboxflowaibb090e2dVerifyAuthChallengeResponse-6e414759777530785049-build.zip"
+        },
+        "inboxflowai15a3131fCustomMessage": {
+          "REDIRECTURL": "https://inboxflowai.com/confirmation-success",
+          "EMAILSUBJECT": "InboxFlowAI Account Verification",
+          "EMAILMESSAGE": "Thank you for singing up for InboxFlowAI! Please verify your email address by clicking the link. This will allow you to access your plan features.",
+          "deploymentBucketName": "amplify-inboxflowai-dev-a8e80-deployment",
+          "s3Key": "amplify-builds/inboxflowai15a3131fCustomMessage-37525356456754354462-build.zip"
+        }
+      },
+      "hosting": {
+        "S3AndCloudFront": {}
+      }
+    }
+  }
+}
