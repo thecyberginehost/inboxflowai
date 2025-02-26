@@ -54,9 +54,13 @@ export default function SignupPage() {
       });
 
       setSuccess("Signup successful! Please check your email for verification.");
-    } catch (err: any) {
-      setError(err.message || "Signup failed. Please try again.");
-    }
+    } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("Signup failed. Please try again.");
+        }
+      }   
   };
 
   return (

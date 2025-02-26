@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Home() {
   return (
     <main className="w-full text-center">
@@ -5,10 +7,12 @@ export default function Home() {
       <section className="relative w-full h-screen flex flex-col items-center justify-center text-white">
         {/* Background Image Only for the Top Section */}
         <div className="absolute inset-0 -z-10">
-          <img 
+          <Image 
             src="/images/ai-background.jpg" 
             alt="Futuristic AI Background" 
-            className="w-full h-full object-cover opacity-40"
+            layout="fill"
+            objectFit="cover"
+            className="opacity-40"
           />
         </div>
 
@@ -91,15 +95,15 @@ export default function Home() {
 
           <div className="mt-10 grid md:grid-cols-3 gap-8">
             <div className="p-6 bg-gray-800 rounded-lg shadow-lg">
-              <p className="text-gray-300">"InboxFlowAI tripled my email engagement! The AI personalization is a game-changer."</p>
+              <p className="text-gray-300">&quot;InboxFlowAI tripled my email engagement! The AI personalization is a game-changer.&quot;</p>
               <h4 className="text-accent font-semibold mt-4">- Sarah J, Sales Manager</h4>
             </div>
             <div className="p-6 bg-gray-800 rounded-lg shadow-lg">
-              <p className="text-gray-300">"Saved me hours every week! AI-powered automation keeps my outreach seamless."</p>
+              <p className="text-gray-300">&quot;Saved me hours every week! AI-powered automation keeps my outreach seamless.&quot;</p>
               <h4 className="text-accent font-semibold mt-4">- Mike T, Startup Founder</h4>
             </div>
             <div className="p-6 bg-gray-800 rounded-lg shadow-lg">
-              <p className="text-gray-300">"Highly recommend for any sales team. InboxFlowAI makes cold emails effortless."</p>
+              <p className="text-gray-300">&quot;Highly recommend for any sales team. InboxFlowAI makes cold emails effortless.&quot;</p>
               <h4 className="text-accent font-semibold mt-4">- Rachel P, Agency Owner</h4>
             </div>
           </div>
