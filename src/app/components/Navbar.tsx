@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { fetchAuthSession, getCurrentUser, signOut } from "@aws-amplify/auth";
+import { fetchAuthSession, fetchUserAttributes, signOut } from "@aws-amplify/auth";
 import Image from "next/image";
 
 export default function Navbar() {
@@ -17,11 +17,11 @@ export default function Navbar() {
       try {
         const session = await fetchAuthSession();
         if (session.tokens) {
-          const userData = await getCurrentUser();
+          const attributes = await fetchUserAttributes();
           setUser({
-            name: userData?.signInDetails?.loginId || "User",
-            email: userData?.signInDetails?.loginId || "",
-            picture: userData?.attributes?.picture || "/images/default-profile.png",
+            name: attributes?.name || "User",
+            email: attributes?.email || "",
+            picture: attributes?.picture || "/images/default-profile.png",
           });
           setIsAuthenticated(true);
         } else {
