@@ -1,6 +1,6 @@
 {
   "auth": {
-    "inboxflowai15a3131f": {
+    "inboxflowai47c67166": {
       "customAuth": false,
       "dependsOn": [
         {
@@ -9,7 +9,7 @@
             "Name"
           ],
           "category": "function",
-          "resourceName": "inboxflowai15a3131fCustomMessage",
+          "resourceName": "inboxflowai47c67166CustomMessage",
           "triggerProvider": "Cognito"
         }
       ],
@@ -40,6 +40,11 @@
   },
   "function": {
     "inboxflowai15a3131fCustomMessage": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "inboxflowai47c67166CustomMessage": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -104,6 +109,46 @@
         {
           "category": "function",
           "resourceName": "inboxflowai15a3131fCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_inboxflowai47c67166CustomMessage_EMAILMESSAGE": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowai47c67166CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_inboxflowai47c67166CustomMessage_EMAILSUBJECT": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowai47c67166CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_inboxflowai47c67166CustomMessage_REDIRECTURL": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowai47c67166CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_inboxflowai47c67166CustomMessage_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowai47c67166CustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_inboxflowai47c67166CustomMessage_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "inboxflowai47c67166CustomMessage"
         }
       ]
     },

@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "inboxflowai15a3131f_identitypool_15a3131f",
+    "identityPoolName": "inboxflowai47c67166_identitypool_47c67166",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "inboxf15a3131f",
-    "userPoolName": "inboxflowai15a3131f_userpool_15a3131f",
+    "resourceNameTruncated": "inboxf47c67166",
+    "userPoolName": "inboxflowai47c67166_userpool_47c67166",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -32,10 +32,10 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "inboxf15a3131f_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "inboxf47c67166_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "15a3131f",
-    "resourceName": "inboxflowai15a3131f",
+    "sharedId": "47c67166",
+    "resourceName": "inboxflowai47c67166",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
     "usernameAttributes": [
@@ -48,7 +48,7 @@
     },
     "userPoolGroupList": [],
     "serviceName": "Cognito",
-    "verificationBucketName": "inboxflowai15a3131fverificationbucket",
+    "verificationBucketName": "inboxflowai47c67166verificationbucket",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true
   }

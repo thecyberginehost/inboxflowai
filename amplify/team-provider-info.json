@@ -15,7 +15,7 @@
     "categories": {
       "auth": {
         "inboxflowaibb090e2d": {},
-        "inboxflowai15a3131f": {}
+        "inboxflowai47c67166": {}
       },
       "function": {
         "inboxflowaibb090e2dDefineAuthChallenge": {
@@ -37,6 +37,13 @@
           "EMAILMESSAGE": "Thank you for singing up for InboxFlowAI! Please verify your email address by clicking the link. This will allow you to access your plan features.",
           "deploymentBucketName": "amplify-inboxflowai-dev-a8e80-deployment",
           "s3Key": "amplify-builds/inboxflowai15a3131fCustomMessage-37525356456754354462-build.zip"
+        },
+        "inboxflowai47c67166CustomMessage": {
+          "REDIRECTURL": "https://inboxflowai.com/confirmation-success",
+          "EMAILSUBJECT": "InboxFlowAI Verification Email",
+          "EMAILMESSAGE": "Welcome to InboxFlowAI! Please verify your email by clicking the following link: ",
+          "deploymentBucketName": "amplify-inboxflowai-dev-a8e80-deployment",
+          "s3Key": "amplify-builds/inboxflowai47c67166CustomMessage-766d6935633473367963-build.zip"
         }
       },
       "hosting": {
