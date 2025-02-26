@@ -16,12 +16,24 @@ export default function SignupPage() {
     password: "",
     confirmPassword: "",
   });
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  // Password Validation
+  const passwordValid = {
+    length: formData.password.length >= 8,
+    uppercase: /[A-Z]/.test(formData.password),
+    number: /\d/.test(formData.password),
+    specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(formData.password),
+    match: formData.password === formData.confirmPassword && formData.password !== "",
+  };
+
+  const allValid = Object.values(passwordValid).every(Boolean);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,12 +44,8 @@ export default function SignupPage() {
       setError("All fields are required.");
       return;
     }
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
-    if (formData.password.length < 8) {
-      setError("Password must be at least 8 characters long.");
+    if (!allValid) {
+      setError("Please meet all password requirements.");
       return;
     }
 
@@ -55,12 +63,12 @@ export default function SignupPage() {
 
       setSuccess("Signup successful! Please check your email for verification.");
     } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError("Signup failed. Please try again.");
-        }
-      }   
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Signup failed. Please try again.");
+      }
+    }
   };
 
   return (
@@ -99,6 +107,7 @@ export default function SignupPage() {
             />
           </div>
 
+          {/* Password Field */}
           <div className="mb-4">
             <label htmlFor="password" className="block text-gray-300">Password</label>
             <input
@@ -112,7 +121,8 @@ export default function SignupPage() {
             />
           </div>
 
-          <div className="mb-4">
+          {/* Confirm Password Field */}
+          <div className="mb-4 relative">
             <label htmlFor="confirmPassword" className="block text-gray-300">Confirm Password</label>
             <input
               type="password"
@@ -125,9 +135,31 @@ export default function SignupPage() {
             />
           </div>
 
+          {/* Password Requirements */}
+          <div className="mt-2 text-sm">
+            <p className={`mt-1 ${passwordValid.length ? "text-green-400" : "text-red-400"}`}>
+              {passwordValid.length ? "✅" : "❌"} At least 8 characters
+            </p>
+            <p className={`mt-1 ${passwordValid.uppercase ? "text-green-400" : "text-red-400"}`}>
+              {passwordValid.uppercase ? "✅" : "❌"} At least one uppercase letter
+            </p>
+            <p className={`mt-1 ${passwordValid.number ? "text-green-400" : "text-red-400"}`}>
+              {passwordValid.number ? "✅" : "❌"} At least one number
+            </p>
+            <p className={`mt-1 ${passwordValid.specialChar ? "text-green-400" : "text-red-400"}`}>
+              {passwordValid.specialChar ? "✅" : "❌"} At least one special character (!@#$%^&*)
+            </p>
+            <p className={`mt-1 ${passwordValid.match ? "text-green-400" : "text-red-400"}`}>
+              {passwordValid.match ? "✅" : "❌"} Passwords Match
+            </p>
+          </div>
+
           <button
             type="submit"
-            className="w-full bg-primary hover:bg-secondary text-white font-semibold py-3 rounded-lg transition mt-4"
+            disabled={!allValid}
+            className={`w-full font-semibold py-3 rounded-lg transition mt-4 ${
+              allValid ? "bg-primary hover:bg-secondary text-white" : "bg-gray-500 cursor-not-allowed"
+            }`}
           >
             Sign Up
           </button>
