@@ -1,8 +1,11 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { signIn } from "@aws-amplify/auth";
 
 export default function LoginPage() {
+  const router = useRouter(); // ✅ Enables redirect after login
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -27,8 +30,20 @@ export default function LoginPage() {
       return;
     }
 
-    // TODO: Implement AWS Cognito Login API call
-    setSuccess("Login successful! Redirecting...");
+    try {
+      await signIn({ username: formData.email, password: formData.password });
+
+      setSuccess("✅ Login successful! Redirecting...");
+      setTimeout(() => {
+        router.push("/dashboard"); // ✅ Redirect to dashboard
+      }, 1500);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError("❌ " + err.message);
+      } else {
+        setError("❌ Login failed. Please try again.");
+      }
+    }
   };
 
   return (
