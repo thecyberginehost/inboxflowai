@@ -7,13 +7,13 @@ export default function Home() {
       <section className="relative w-full h-screen flex flex-col items-center justify-center text-white">
         {/* Background Image Only for the Top Section */}
         <div className="absolute inset-0 -z-10">
-          <Image 
-            src="/images/ai-background.jpg" 
-            alt="Futuristic AI Background" 
-            layout="fill"
-            objectFit="cover"
-            className="opacity-40"
-          />
+        <Image 
+  src="/images/ai-background.jpg" 
+  alt="Futuristic AI Background" 
+  fill
+  className="object-cover opacity-40"
+/>
+
         </div>
 
         <h1 className="text-5xl font-bold text-primary leading-tight">
