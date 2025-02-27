@@ -1,18 +1,34 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { signIn } from "@aws-amplify/auth";
+import { signIn, fetchAuthSession } from "@aws-amplify/auth";
 
 export default function LoginPage() {
-  const router = useRouter(); // Enables redirect after login
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [loading, setLoading] = useState(false); // Prevents multiple submissions
+  const [loading, setLoading] = useState(false);
+
+  // Function to check existing auth session
+  const checkSession = useCallback(async () => {
+    try {
+      const session = await fetchAuthSession();
+      if (session.tokens) {
+        router.push("/dashboard"); // Redirect if already logged in
+      }
+    } catch {
+      console.log("No active session");
+    }
+  }, [router]); // ✅ Dependency added
+
+  useEffect(() => {
+    checkSession();
+  }, [checkSession]); // ✅ Fixed dependency array
 
   // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,13 +54,14 @@ export default function LoginPage() {
       await signIn({ username: formData.email, password: formData.password });
 
       setSuccess("✅ Login successful! Redirecting...");
+      localStorage.setItem("isAuthenticated", "true"); // Store login state
       setTimeout(() => {
         router.push("/dashboard"); // Redirects to dashboard
       }, 1500);
     } catch (err: unknown) {
-      setLoading(false); // Reset loading state if login fails
+      setLoading(false);
       if (err instanceof Error) {
-        setError("❌ Email or Password invalid."); // General error message for security reasons
+        setError("❌ Email or Password is incorrect."); // General error message for security reasons
       } else {
         setError("❌ Login failed. Please try again.");
       }

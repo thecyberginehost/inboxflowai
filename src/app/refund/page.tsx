@@ -32,13 +32,16 @@ export default function RefundPolicyPage() {
       ),
     },
     {
-      title: "Requesting a Refund",
-      content: `If you believe you qualify for a refund, follow these steps:  
-      1. Contact our support team via email at **[support@inboxflowai.com](mailto:support@inboxflowai.com)** with your refund request.  
-      2. Provide your account details and proof of purchase.  
-      3. Explain the reason for your refund request, including any technical issues encountered.  
-      4. Our team will review your request within 5 business days and respond accordingly.`,
-    },
+        title: "Requesting a Refund",
+        content: (
+          <ul className="list-disc list-inside text-gray-300 mt-2 space-y-2">
+            <li>Contact our support team via email at <a href="mailto:support@inboxflowai.com" className="text-accent hover:underline">support@inboxflowai.com</a> with your refund request.</li>
+            <li>Provide your account details and proof of purchase.</li>
+            <li>Explain the reason for your refund request, including any technical issues encountered.</li>
+            <li>Our team will review your request within 5 business days and respond accordingly.</li>
+          </ul>
+        ),
+      },
     {
       title: "Refund Processing Time",
       content: (

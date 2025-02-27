@@ -46,28 +46,28 @@ export default function Navbar() {
   return (
     <nav className="bg-background border-b border-gray-800 fixed w-full z-50 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16"> {/* Reduced navbar height */}
+        <div className="flex justify-between items-center h-14"> {/* Adjusted navbar height */}
           {/* Logo + Company Name */}
           <Link href="/" className="flex items-center space-x-3">
             <Image 
               src="/images/features/logo.png" 
               alt="InboxFlowAI Logo" 
-              width={55}  // Slightly smaller but still visible
-              height={55}  
+              width={50}  
+              height={50}  
               className="rounded-md cursor-pointer hover:scale-105 transition-transform"
             />
-            <span className="text-primary text-3xl font-bold hover:animate-pulse">
+            <span className="text-primary text-2xl font-bold hover:animate-pulse">
               InboxFlow<span className="text-accent animate-pulse">AI</span>
             </span>
           </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6 items-center">
-            <Link href="/" className="text-base font-semibold text-gray-300 hover:text-primary transition">Home</Link>
-            {isAuthenticated && <Link href="/dashboard" className="text-base font-semibold text-gray-300 hover:text-primary transition">Dashboard</Link>}
-            <Link href="/about" className="text-base font-semibold text-gray-300 hover:text-primary transition">About</Link>
-            <Link href="/features" className="text-base font-semibold text-gray-300 hover:text-primary transition">Features</Link>
-            <Link href="/pricing" className="text-base font-semibold text-gray-300 hover:text-primary transition">Pricing</Link>
+            <Link href="/" className="text-lg font-semibold text-gray-300 hover:text-primary transition">Home</Link>
+            {isAuthenticated && <Link href="/dashboard" className="text-lg font-semibold text-gray-300 hover:text-primary transition">Dashboard</Link>}
+            <Link href="/about" className="text-lg font-semibold text-gray-300 hover:text-primary transition">About</Link>
+            <Link href="/features" className="text-lg font-semibold text-gray-300 hover:text-primary transition">Features</Link>
+            <Link href="/pricing" className="text-lg font-semibold text-gray-300 hover:text-primary transition">Pricing</Link>
 
             {/* Login Button / Profile Dropdown */}
             {isAuthenticated ? (
@@ -97,7 +97,7 @@ export default function Navbar() {
                 )}
               </div>
             ) : (
-              <Link href="/login" className="px-6 py-2 bg-primary text-base rounded-lg text-white font-semibold hover:bg-secondary transition">
+              <Link href="/login" className="px-6 py-2 bg-primary text-lg rounded-lg text-white font-semibold hover:bg-secondary transition">
                 Login
               </Link>
             )}
@@ -120,26 +120,26 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden flex flex-col items-center py-4 space-y-4 bg-gray-900">
-          <Link href="/" className="text-base font-semibold text-gray-300 hover:text-primary transition" onClick={() => setMobileMenuOpen(false)}>Home</Link>
+          <Link href="/" className="text-lg font-semibold text-gray-300 hover:text-primary transition" onClick={() => setMobileMenuOpen(false)}>Home</Link>
           {isAuthenticated && (
-            <Link href="/dashboard" className="text-base font-semibold text-gray-300 hover:text-primary transition" onClick={() => setMobileMenuOpen(false)}>Dashboard</Link>
+            <Link href="/dashboard" className="text-lg font-semibold text-gray-300 hover:text-primary transition" onClick={() => setMobileMenuOpen(false)}>Dashboard</Link>
           )}
-          <Link href="/about" className="text-base font-semibold text-gray-300 hover:text-primary transition" onClick={() => setMobileMenuOpen(false)}>About</Link>
-          <Link href="/features" className="text-base font-semibold text-gray-300 hover:text-primary transition" onClick={() => setMobileMenuOpen(false)}>Features</Link>
-          <Link href="/pricing" className="text-base font-semibold text-gray-300 hover:text-primary transition" onClick={() => setMobileMenuOpen(false)}>Pricing</Link>
+          <Link href="/about" className="text-lg font-semibold text-gray-300 hover:text-primary transition" onClick={() => setMobileMenuOpen(false)}>About</Link>
+          <Link href="/features" className="text-lg font-semibold text-gray-300 hover:text-primary transition" onClick={() => setMobileMenuOpen(false)}>Features</Link>
+          <Link href="/pricing" className="text-lg font-semibold text-gray-300 hover:text-primary transition" onClick={() => setMobileMenuOpen(false)}>Pricing</Link>
           
           {isAuthenticated ? (
             <>
-              <Link href="/account" className="text-base font-semibold text-gray-300 hover:text-primary transition" onClick={() => setMobileMenuOpen(false)}>Account Settings</Link>
+              <Link href="/account" className="text-lg font-semibold text-gray-300 hover:text-primary transition" onClick={() => setMobileMenuOpen(false)}>Account Settings</Link>
               <button
                 onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
-                className="w-full text-base text-left px-5 py-3 text-red-400 hover:bg-gray-700"
+                className="w-full text-lg text-left px-5 py-3 text-red-400 hover:bg-gray-700"
               >
                 Logout
               </button>
             </>
           ) : (
-            <Link href="/login" className="px-6 py-3 bg-primary text-base rounded-lg text-white font-semibold hover:bg-secondary transition" onClick={() => setMobileMenuOpen(false)}>
+            <Link href="/login" className="px-6 py-3 bg-primary text-lg rounded-lg text-white font-semibold hover:bg-secondary transition" onClick={() => setMobileMenuOpen(false)}>
               Login
             </Link>
           )}
