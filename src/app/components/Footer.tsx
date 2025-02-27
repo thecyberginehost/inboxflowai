@@ -7,10 +7,10 @@ export default function Footer() {
         <p>© {new Date().getFullYear()} InboxFlowAI. All rights reserved.</p>
 
         <div className="flex space-x-6 mt-4 md:mt-0">
-          <Link href="/about" className="hover:text-white">About</Link>
           <Link href="/faq" className="hover:text-white">FAQ</Link>
           <Link href="/privacy" className="hover:text-white">Privacy Notice</Link>
           <Link href="/terms" className="hover:text-white">Terms of Service</Link>
+          <Link href="/refund" className="hover:text-white">Refund Policy</Link>
         </div>
       </div>
     </footer>

@@ -5,13 +5,14 @@ import Link from "next/link";
 import { signIn } from "@aws-amplify/auth";
 
 export default function LoginPage() {
-  const router = useRouter(); // ✅ Enables redirect after login
+  const router = useRouter(); // Enables redirect after login
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false); // Prevents multiple submissions
 
   // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,23 +24,27 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
     setSuccess("");
+    setLoading(true);
 
     // Basic validation
     if (!formData.email || !formData.password) {
-      setError("Both fields are required.");
+      setError("❌ Both fields are required.");
+      setLoading(false);
       return;
     }
 
     try {
+      // Attempt sign-in with provided credentials
       await signIn({ username: formData.email, password: formData.password });
 
       setSuccess("✅ Login successful! Redirecting...");
       setTimeout(() => {
-        router.push("/dashboard"); // ✅ Redirect to dashboard
+        router.push("/dashboard"); // Redirects to dashboard
       }, 1500);
     } catch (err: unknown) {
+      setLoading(false); // Reset loading state if login fails
       if (err instanceof Error) {
-        setError("❌ " + err.message);
+        setError("❌ Email or Password invalid."); // General error message for security reasons
       } else {
         setError("❌ Login failed. Please try again.");
       }
@@ -90,9 +95,12 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className="w-full bg-primary hover:bg-secondary text-white font-semibold py-3 rounded-lg transition"
+            className={`w-full bg-primary text-white font-semibold py-3 rounded-lg transition ${
+              loading ? "opacity-50 cursor-not-allowed" : "hover:bg-secondary"
+            }`}
+            disabled={loading} // Disable button while loading
           >
-            Log In
+            {loading ? "Logging in..." : "Log In"}
           </button>
         </form>
 

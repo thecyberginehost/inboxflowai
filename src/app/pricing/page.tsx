@@ -35,7 +35,7 @@ export default function PricingPage() {
 
   return (
     <main className="min-h-screen bg-background text-white p-6">
-      <div className="max-w-5xl mx-auto text-center">
+      <div className="max-w-5xl mx-auto text-center mt-20"> {/* Added mt-20 to move content down */}
         <h1 className="text-5xl font-bold text-primary">Choose Your Plan</h1>
         <p className="text-gray-400 mt-4">Flexible pricing that scales with your needs.</p>
 
