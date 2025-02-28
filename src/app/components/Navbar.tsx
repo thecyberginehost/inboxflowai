@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { fetchAuthSession, fetchUserAttributes, signOut } from "@aws-amplify/auth";
@@ -10,11 +10,12 @@ export default function Navbar() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<{ name?: string; email?: string; picture?: string } | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Function to check authentication status and fetch user data
+  // ✅ Function to check authentication status
   const checkAuth = async () => {
     try {
-      const session = await fetchAuthSession();
+      const session = await fetchAuthSession({ forceRefresh: true }); // ✅ Ensure fresh session
       if (session.tokens) {
         const attributes = await fetchUserAttributes();
         setUser({
@@ -31,23 +32,42 @@ export default function Navbar() {
     }
   };
 
-  // Run authentication check on component mount
+  // ✅ Run authentication check on component mount
   useEffect(() => {
     checkAuth();
   }, []);
 
-  // Handle logout
+  // ✅ Handle logout and update UI immediately
   const handleLogout = async () => {
     await signOut();
     setIsAuthenticated(false);
     setUser(null);
+    setDropdownOpen(false);
+    setMobileMenuOpen(false);
   };
+
+  // ✅ Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+
+    if (dropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [dropdownOpen]);
 
   return (
     <nav className="bg-background border-b border-gray-800 fixed w-full z-50 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-14"> {/* Adjusted navbar height */}
-          {/* Logo + Company Name */}
+        <div className="flex justify-between items-center h-14">
+          {/* ✅ Logo + Company Name */}
           <Link href="/" className="flex items-center space-x-3">
             <Image 
               src="/images/features/logo.png" 
@@ -61,17 +81,21 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop Menu */}
+          {/* ✅ Desktop Menu */}
           <div className="hidden md:flex space-x-6 items-center">
             <Link href="/" className="text-lg font-semibold text-gray-300 hover:text-primary transition">Home</Link>
-            {isAuthenticated && <Link href="/dashboard" className="text-lg font-semibold text-gray-300 hover:text-primary transition">Dashboard</Link>}
+            {isAuthenticated && (
+              <Link href="/dashboard" className="text-lg font-semibold text-gray-300 hover:text-primary transition">
+                Dashboard
+              </Link>
+            )}
             <Link href="/about" className="text-lg font-semibold text-gray-300 hover:text-primary transition">About</Link>
             <Link href="/features" className="text-lg font-semibold text-gray-300 hover:text-primary transition">Features</Link>
             <Link href="/pricing" className="text-lg font-semibold text-gray-300 hover:text-primary transition">Pricing</Link>
 
-            {/* Login Button / Profile Dropdown */}
+            {/* ✅ Login Button / Profile Dropdown */}
             {isAuthenticated ? (
-              <div className="relative">
+              <div className="relative" ref={dropdownRef}>
                 <button onClick={() => setDropdownOpen(!dropdownOpen)} className="relative flex items-center space-x-2">
                   <Image
                     src={user?.picture || "/images/default-profile.png"}
@@ -82,11 +106,13 @@ export default function Navbar() {
                   />
                 </button>
 
-                {/* Dropdown Menu */}
+                {/* ✅ Profile Dropdown Menu */}
                 {dropdownOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded-lg shadow-lg py-2">
                     <p className="text-gray-300 px-4 py-2">{user?.email}</p>
-                    <Link href="/account" className="block px-4 py-2 text-white hover:bg-gray-700">Account Settings</Link>
+                    <Link href="/account" className="block px-4 py-2 text-white hover:bg-gray-700">
+                      Account Settings
+                    </Link>
                     <button
                       onClick={handleLogout}
                       className="w-full text-left px-4 py-2 text-red-400 hover:bg-gray-700"
@@ -103,7 +129,7 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* ✅ Mobile Menu Button */}
           <button
             className="md:hidden text-gray-400 hover:text-white transition"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -117,7 +143,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* ✅ Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden flex flex-col items-center py-4 space-y-4 bg-gray-900">
           <Link href="/" className="text-lg font-semibold text-gray-300 hover:text-primary transition" onClick={() => setMobileMenuOpen(false)}>Home</Link>
@@ -132,7 +158,7 @@ export default function Navbar() {
             <>
               <Link href="/account" className="text-lg font-semibold text-gray-300 hover:text-primary transition" onClick={() => setMobileMenuOpen(false)}>Account Settings</Link>
               <button
-                onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
+                onClick={handleLogout}
                 className="w-full text-lg text-left px-5 py-3 text-red-400 hover:bg-gray-700"
               >
                 Logout

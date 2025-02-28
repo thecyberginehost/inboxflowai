@@ -17,18 +17,18 @@ export default function LoginPage() {
   // Function to check existing auth session
   const checkSession = useCallback(async () => {
     try {
-      const session = await fetchAuthSession();
+      const session = await fetchAuthSession({ forceRefresh: true }); // ✅ Ensure tokens are fresh
       if (session.tokens) {
         router.push("/dashboard"); // Redirect if already logged in
       }
-    } catch {
-      console.log("No active session");
+    } catch (err) {
+      console.error("Session check failed:", err);
     }
-  }, [router]); // ✅ Dependency added
+  }, [router]);
 
   useEffect(() => {
     checkSession();
-  }, [checkSession]); // ✅ Fixed dependency array
+  }, [checkSession]);
 
   // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +42,6 @@ export default function LoginPage() {
     setSuccess("");
     setLoading(true);
 
-    // Basic validation
     if (!formData.email || !formData.password) {
       setError("❌ Both fields are required.");
       setLoading(false);
@@ -54,16 +53,23 @@ export default function LoginPage() {
       await signIn({ username: formData.email, password: formData.password });
 
       setSuccess("✅ Login successful! Redirecting...");
-      localStorage.setItem("isAuthenticated", "true"); // Store login state
       setTimeout(() => {
         router.push("/dashboard"); // Redirects to dashboard
       }, 1500);
     } catch (err: unknown) {
       setLoading(false);
       if (err instanceof Error) {
-        setError("❌ Email or Password is incorrect."); // General error message for security reasons
+        if (err.message.includes("User is not confirmed")) {
+          setError("❌ Your email is not verified. Please check your inbox.");
+        } else if (err.message.includes("Incorrect username or password")) {
+          setError("❌ Email or Password is incorrect.");
+        } else if (err.message.includes("User does not exist")) {
+          setError("❌ No account found with this email.");
+        } else {
+          setError(`❌ Login failed: ${err.message}`);
+        }
       } else {
-        setError("❌ Login failed. Please try again.");
+        setError("❌ An unexpected error occurred. Please try again.");
       }
     }
   };
@@ -115,7 +121,7 @@ export default function LoginPage() {
             className={`w-full bg-primary text-white font-semibold py-3 rounded-lg transition ${
               loading ? "opacity-50 cursor-not-allowed" : "hover:bg-secondary"
             }`}
-            disabled={loading} // Disable button while loading
+            disabled={loading}
           >
             {loading ? "Logging in..." : "Log In"}
           </button>

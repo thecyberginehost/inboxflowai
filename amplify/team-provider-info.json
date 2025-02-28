@@ -15,39 +15,19 @@
     "categories": {
       "auth": {
         "inboxflowaibb090e2d": {},
-        "inboxflowai47c67166": {}
-      },
-      "function": {
-        "inboxflowaibb090e2dDefineAuthChallenge": {
-          "deploymentBucketName": "amplify-inboxflowai-dev-a8e80-deployment",
-          "s3Key": "amplify-builds/inboxflowaibb090e2dDefineAuthChallenge-707a72786d7273524d71-build.zip"
-        },
-        "inboxflowaibb090e2dCreateAuthChallenge": {
-          "deploymentBucketName": "amplify-inboxflowai-dev-a8e80-deployment",
-          "s3Key": "amplify-builds/inboxflowaibb090e2dCreateAuthChallenge-6b375630645276575573-build.zip"
-        },
-        "inboxflowaibb090e2dVerifyAuthChallengeResponse": {
-          "RECAPTCHASECRET": "6LewZOEqAAAAAGpvGhGeY2PW6jlTab4vXEltQf",
-          "deploymentBucketName": "amplify-inboxflowai-dev-a8e80-deployment",
-          "s3Key": "amplify-builds/inboxflowaibb090e2dVerifyAuthChallengeResponse-6e414759777530785049-build.zip"
-        },
-        "inboxflowai15a3131fCustomMessage": {
-          "REDIRECTURL": "https://inboxflowai.com/confirmation-success",
-          "EMAILSUBJECT": "InboxFlowAI Account Verification",
-          "EMAILMESSAGE": "Thank you for singing up for InboxFlowAI! Please verify your email address by clicking the link. This will allow you to access your plan features.",
-          "deploymentBucketName": "amplify-inboxflowai-dev-a8e80-deployment",
-          "s3Key": "amplify-builds/inboxflowai15a3131fCustomMessage-37525356456754354462-build.zip"
-        },
-        "inboxflowai47c67166CustomMessage": {
-          "REDIRECTURL": "https://inboxflowai.com/confirmation-success",
-          "EMAILSUBJECT": "InboxFlowAI Verification Email",
-          "EMAILMESSAGE": "Welcome to InboxFlowAI! Please verify your email by clicking the following link: ",
-          "deploymentBucketName": "amplify-inboxflowai-dev-a8e80-deployment",
-          "s3Key": "amplify-builds/inboxflowai47c67166CustomMessage-766d6935633473367963-build.zip"
-        }
+        "inboxflowai5719cad15719cad1": {}
       },
       "hosting": {
         "S3AndCloudFront": {}
+      },
+      "function": {
+        "inboxflowai5719cad15719cad1CustomMessage": {
+          "REDIRECTURL": "https://inboxflowai.com/confirmation-success",
+          "EMAILSUBJECT": "Welcome to inboxFlowAI!",
+          "EMAILMESSAGE": "Please click the following link to verify your email address:",
+          "deploymentBucketName": "amplify-inboxflowai-dev-a8e80-deployment",
+          "s3Key": "amplify-builds/inboxflowai5719cad15719cad1CustomMessage-4a6d44756f42374d5a44-build.zip"
+        }
       }
     }
   }

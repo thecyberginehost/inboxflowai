@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "inboxflowai47c67166_identitypool_47c67166",
+    "identityPoolName": "inboxflowai5719cad1_identitypool_5719cad1",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "inboxf47c67166",
-    "userPoolName": "inboxflowai47c67166_userpool_47c67166",
+    "resourceNameTruncated": "inboxf5719cad1",
+    "userPoolName": "inboxflowai5719cad1_userpool_5719cad1",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -14,8 +14,8 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code",
-    "emailVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Welcome to inboxFlowAI!",
+    "emailVerificationMessage": "Please click the following link to verify your email {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
@@ -27,28 +27,34 @@
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
-      "email"
+      "email",
+      "name"
     ],
     "userpoolClientReadAttributes": [
-      "email"
+      "email",
+      "name"
     ],
-    "userpoolClientLambdaRole": "inboxf47c67166_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
-    "sharedId": "47c67166",
-    "resourceName": "inboxflowai47c67166",
+    "userpoolClientLambdaRole": "inboxf5719cad1_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": true,
+    "sharedId": "5719cad1",
+    "resourceName": "inboxflowai5719cad15719cad1",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
+    "useDefault": "manual",
+    "thirdPartyAuth": false,
     "usernameAttributes": [
       "email"
     ],
+    "userPoolGroups": false,
+    "adminQueries": false,
     "triggers": {
       "CustomMessage": [
         "verification-link"
       ]
     },
+    "hostedUI": false,
     "userPoolGroupList": [],
     "serviceName": "Cognito",
-    "verificationBucketName": "inboxflowai47c67166verificationbucket",
+    "verificationBucketName": "inboxflowai5719cad15719cad1verificationbucket",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true
   }

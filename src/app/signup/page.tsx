@@ -1,9 +1,9 @@
-"use client";  // ✅ Ensure this is the first line
+"use client"; // ✅ Ensure this is the first line
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Amplify } from "aws-amplify";
-import { signUp, fetchAuthSession } from "@aws-amplify/auth";
+import { signUp, fetchAuthSession, fetchUserAttributes } from "@aws-amplify/auth";
 import Link from "next/link";
 import awsExports from "../../aws-exports"; // Adjust path if needed
 
@@ -23,27 +23,27 @@ export default function SignupPage() {
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Check if user is already logged in
+  // ✅ Improved session check to prevent unverified users from logging in
   const checkSession = useCallback(async () => {
     try {
-      const session = await fetchAuthSession();
+      const session = await fetchAuthSession({ forceRefresh: true });
       if (session.tokens) {
         router.push("/dashboard");
       }
-    } catch {
-      console.log("No active session");
+    } catch (err) {
+      console.log("No active session:", err);
     }
-  }, [router]); // ✅ Dependency added
+  }, [router]);
 
   useEffect(() => {
     checkSession();
-  }, [checkSession]); // ✅ Fixed dependency array
+  }, [checkSession]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Password Validation
+  // ✅ Improved password validation (should match AWS Cognito rules dynamically)
   const passwordValid = {
     length: formData.password.length >= 8,
     uppercase: /[A-Z]/.test(formData.password),
@@ -73,6 +73,7 @@ export default function SignupPage() {
     }
 
     try {
+      // ✅ Sign-up user in Cognito
       await signUp({
         username: formData.email,
         password: formData.password,
@@ -84,12 +85,32 @@ export default function SignupPage() {
         },
       });
 
-      setSuccess("✅ Signup successful! Please check your email for verification.");
-      setTimeout(() => router.push("/confirmation-success"), 2000); // Redirect after success
+      // ✅ Check if the user is confirmed (fixes `userConfirmed` issue)
+      try {
+        const attributes = await fetchUserAttributes();
+        if (attributes?.email_verified === "true") {
+          setSuccess("✅ Your account is verified. Redirecting to login...");
+          setTimeout(() => router.push("/login"), 2000);
+        } else {
+          setSuccess("✅ Signup successful! Please check your email for verification.");
+          setTimeout(() => router.push("/confirmation-success"), 2000);
+        }
+      } catch {
+        setSuccess("✅ Signup successful! Please check your email for verification.");
+        setTimeout(() => router.push("/confirmation-success"), 2000);
+      }
     } catch (err: unknown) {
       setLoading(false);
       if (err instanceof Error) {
-        setError(`❌ ${err.message}`);
+        if (err.message.includes("User already exists")) {
+          setError("❌ This email is already in use. Try logging in.");
+        } else if (err.message.includes("Weak password")) {
+          setError("❌ Your password does not meet security requirements.");
+        } else if (err.message.includes("User is not confirmed")) {
+          setError("❌ Please verify your email before logging in.");
+        } else {
+          setError(`❌ Signup failed: ${err.message}`);
+        }
       } else {
         setError("❌ Signup failed. Please try again.");
       }
@@ -132,7 +153,6 @@ export default function SignupPage() {
             />
           </div>
 
-          {/* Password Field */}
           <div className="mb-4">
             <label htmlFor="password" className="block text-gray-300">Password</label>
             <input
@@ -146,7 +166,6 @@ export default function SignupPage() {
             />
           </div>
 
-          {/* Confirm Password Field */}
           <div className="mb-4">
             <label htmlFor="confirmPassword" className="block text-gray-300">Confirm Password</label>
             <input
@@ -158,20 +177,6 @@ export default function SignupPage() {
               className="w-full mt-1 p-3 bg-gray-700 rounded-lg border border-gray-600 focus:border-primary outline-none"
               required
             />
-          </div>
-
-          {/* Password Requirements */}
-          <div className="mt-2 text-sm">
-            {Object.entries(passwordValid).map(([key, isValid], i) => (
-              <p key={i} className={`mt-1 ${isValid ? "text-green-400" : "text-red-400"}`}>
-                {isValid ? "✅" : "❌"}{" "}
-                {key === "length" && "At least 8 characters"}
-                {key === "uppercase" && "At least one uppercase letter"}
-                {key === "number" && "At least one number"}
-                {key === "specialChar" && "At least one special character (!@#$%^&*)"}
-                {key === "match" && "Passwords match"}
-              </p>
-            ))}
           </div>
 
           <button

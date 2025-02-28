@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation"; // For client-side navigation
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { fetchUserAttributes, signOut, fetchAuthSession } from "@aws-amplify/auth";
 import Image from "next/image";
@@ -14,23 +14,29 @@ export default function Dashboard() {
   const router = useRouter();
   const [user, setUser] = useState<{ name?: string; email?: string; picture?: string } | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const session = await fetchAuthSession();
+        const session = await fetchAuthSession({ forceRefresh: true });
+
         if (!session.tokens) {
-          router.push("/login"); // Redirect to login if not authenticated
-          return;
+          throw new Error("No active session");
         }
+
         const attributes = await fetchUserAttributes();
         setUser({
           name: attributes?.name || "User",
           email: attributes?.email || "",
           picture: attributes?.picture || "/images/default-profile.png",
         });
-      } catch {
-        router.push("/login"); // Redirect on error (not logged in)
+
+        setIsAuthenticated(true);
+      } catch (err) {
+        console.error("Authentication error:", err);
+        setIsAuthenticated(false);
+        router.replace("/login"); // 🔥 Redirect immediately if not authenticated
       } finally {
         setLoading(false);
       }
@@ -41,21 +47,30 @@ export default function Dashboard() {
 
   const handleLogout = async () => {
     await signOut();
-    router.push("/login"); // Redirect to login after logout
+    setIsAuthenticated(false);
+    setUser(null);
+    router.replace("/login"); // 🔥 Instant logout redirect
   };
 
   if (loading) {
     return (
       <main className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
-        <p>Loading...</p>
+        <div className="flex flex-col items-center">
+          <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
+          <p className="mt-4">Checking authentication...</p>
+        </div>
       </main>
     );
+  }
+
+  if (!isAuthenticated) {
+    return null; // Ensures no UI is shown before redirecting
   }
 
   return (
     <main className="min-h-screen bg-gray-900 text-white p-6">
       <div className="max-w-6xl mx-auto">
-        {/* Top Section: Profile & Quick Actions */}
+        {/* ✅ Top Section: Profile & Logout */}
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <Image
@@ -74,7 +89,7 @@ export default function Dashboard() {
           </button>
         </div>
 
-        {/* Overview Cards */}
+        {/* ✅ Overview Cards */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-4 gap-6">
           {[
             { title: "Emails Sent", value: "1,250", icon: "📩" },
@@ -90,7 +105,7 @@ export default function Dashboard() {
           ))}
         </div>
 
-        {/* Charts Section */}
+        {/* ✅ Charts Section */}
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Line Chart */}
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
@@ -136,7 +151,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Quick Actions */}
+        {/* ✅ Quick Actions */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             { label: "📧 Compose AI Email", link: "/compose" },
@@ -151,23 +166,6 @@ export default function Dashboard() {
               {action.label}
             </Link>
           ))}
-        </div>
-
-        {/* Activity Feed */}
-        <div className="mt-10 bg-gray-800 p-6 rounded-lg shadow-lg">
-          <h3 className="text-xl font-semibold text-primary">Recent Activity</h3>
-          <ul className="mt-4 space-y-3">
-            {[
-              "📬 Email sent to John Doe",
-              "📊 AI-generated response improved engagement",
-              "🔥 High open rate detected in latest campaign",
-              "🚀 Warm-up emails successfully delivered",
-            ].map((activity, index) => (
-              <li key={index} className="text-gray-300">
-                {activity}
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </main>
